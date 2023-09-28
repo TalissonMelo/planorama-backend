@@ -5,11 +5,15 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
 
@@ -22,7 +26,7 @@ public class User {
 	private Boolean active;
 	private String photo;
 
-	public User(String email, String password, String nickname, String photo) {
+	private User(String email, String password, String nickname, String photo) {
 		this.id = UUID.randomUUID().toString();
 		this.active = Boolean.TRUE;
 		this.email = email;
