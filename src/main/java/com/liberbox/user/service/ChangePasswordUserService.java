@@ -3,6 +3,7 @@ package com.liberbox.user.service;
 import javax.transaction.Transactional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.liberbox.user.controller.request.ChangePasswordRequest;
@@ -17,22 +18,22 @@ import lombok.RequiredArgsConstructor;
 public class ChangePasswordUserService {
 
 	private final UserRepository repository;
-	private final BCryptPasswordEncoder encoder;
+	private final PasswordEncoder encoder;
 
 	public void execute(String userId, ChangePasswordRequest request) {
 
 		User user = repository.findByIdAndActive(userId)
 				.orElseThrow(() -> new IllegalArgumentException("User with ID: " + userId + " does not exist"));
 
-		isValidPassword(user.getPassword(), request.oldPassword());
+		isValidPassword(request.oldPassword(), user.getPassword());
 
 		user.toUpdatePassword(encoder.encode(request.newPassword()));
 
 		repository.save(user);
 	}
 
-	private void isValidPassword(String password, String oldPassword) {
-		if (!password.equals(oldPassword)) {
+	private void isValidPassword(String oldPassword, String password) {
+		if (!encoder.matches(oldPassword, password)) {
 			throw new IllegalArgumentException("The current password is wrong.");
 		}
 

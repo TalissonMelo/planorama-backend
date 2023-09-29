@@ -22,8 +22,7 @@ public class ChangePasswordUserController {
 	private final ChangePasswordUserService service;
 
 	@PutMapping("/v1/users/{userId}/password")
-	public ResponseEntity<Void> execute(@PathVariable String userId,
-			@Valid @RequestBody ChangePasswordRequest request) {
+	public ResponseEntity<Void> execute(@PathVariable String userId,@Valid @RequestBody ChangePasswordRequest request) {
 
 		service.execute(userId, request);
 

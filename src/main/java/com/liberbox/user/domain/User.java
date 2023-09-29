@@ -6,15 +6,17 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 
+import com.liberbox.audit.repository.Auditable;
+import com.liberbox.config.domain.ToEntity;
 import com.liberbox.user.domain.enums.Profile;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,14 +24,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Getter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class User extends ToEntity implements Auditable {
 
-	@EqualsAndHashCode.Include
 	@Id
 	private String id;
+	
+	@Column(unique = true)
 	private String email;
 	private String password;
+	
+	@Column(unique = true)
 	private String nickname;
 	private Boolean active;
 	private String photo;
@@ -75,4 +79,13 @@ public class User {
 		this.profile.add(perfil.getCode());
 	}
 
+	@Override
+	public String getEntityId() {
+		return this.id;
+	}
+
+	@Override
+	public String getEntityName() {
+		return getClass().getSimpleName();
+	}
 }

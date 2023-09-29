@@ -23,7 +23,7 @@ public class GetUserIdController {
 
 		UserResponse response = service.execute(userId);
 
-		return ResponseEntity.status(201).body(response);
+		return ResponseEntity.status(200).body(response);
 
 	}
 }

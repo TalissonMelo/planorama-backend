@@ -22,7 +22,7 @@ public class DeleteUserIdController {
 
 		service.execute(userId);
 
-		return ResponseEntity.status(201).body(null);
+		return ResponseEntity.noContent().build();
 
 	}
 }
