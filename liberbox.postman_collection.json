@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"talisson@email.com.br\",\r\n    \"password\": \"1234567\",\r\n    \"nickname\": \"Talisson\",\r\n    \"photo\": null\r\n}",
+							"raw": "{\r\n    \"email\": \"talissonmelo@email.com.br\",\r\n    \"password\": \"1234567\",\r\n    \"nickname\": \"Talisson_Mello\",\r\n    \"photo\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -33,6 +33,161 @@
 							"path": [
 								"v1",
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"talissonmelo@email.com.br\",\r\n    \"password\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNjk2NjEwNzQ5fQ.oTHEQWagBKcq0LUsi3QARQeYaHLKtdyDiyY3BV3Pg_ypUHaPevAOi6axyyvfdrC61odyX5qw8ix5ZJlJ4O6Gqg",
+								"type": "text"
+							},
+							{
+								"key": "X-UserID",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"talisson@email.com.br\",\r\n    \"password\": \"1234567\",\r\n    \"nickname\": \"Talisson\",\r\n    \"photo\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users/8f309fbe-50ad-4001-b031-5633b0fddc6e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"8f309fbe-50ad-4001-b031-5633b0fddc6e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNjk2NjEwNzQ5fQ.oTHEQWagBKcq0LUsi3QARQeYaHLKtdyDiyY3BV3Pg_ypUHaPevAOi6axyyvfdrC61odyX5qw8ix5ZJlJ4O6Gqg",
+								"type": "text"
+							},
+							{
+								"key": "X-UserID",
+								"value": "8f309fbe-50ad-4001-b031-5633b0fddc6e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickname\": \"Talisson\",\r\n    \"photo\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users/8f309fbe-50ad-4001-b031-5633b0fddc6e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"8f309fbe-50ad-4001-b031-5633b0fddc6e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNjk2NjEzMjM4fQ.CTyL9roDLZgknqGDhFr6juoBe6TeuzAqLJDEcPurBUGjus6r1aOGlbmg3sAkgFu3t154rTrP747o7q1zFNQHBw",
+								"type": "text"
+							},
+							{
+								"key": "X-UserID",
+								"value": "f9420b7b-37b9-4cc2-87c2-6b3ec9d0bdb5",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oldPassword\": \"1234567\",\r\n  \"newPassword\": \"Tali1234@@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users/f9420b7b-37b9-4cc2-87c2-6b3ec9d0bdb5/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"f9420b7b-37b9-4cc2-87c2-6b3ec9d0bdb5",
+								"password"
 							]
 						}
 					},

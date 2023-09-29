@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.liberbox.security.service.JWTAuthenticationFilter;
 import com.liberbox.security.service.JWTAuthorizationFilter;
 import com.liberbox.security.util.JWTUtil;
+import com.liberbox.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,13 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] PUBLIC_MATCHERS = { "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/v1/users" };
 	private final UserDetailsService userDetailsService;
+	private final UserRepository repository;
 	private final JWTUtil jwtUtil;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.cors().and().csrf().disable();
-		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil, repository));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
 
