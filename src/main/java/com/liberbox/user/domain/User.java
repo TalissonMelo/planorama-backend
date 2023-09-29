@@ -1,9 +1,17 @@
 package com.liberbox.user.domain;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+
+import com.liberbox.user.domain.enums.Profile;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,6 +33,10 @@ public class User {
 	private String nickname;
 	private Boolean active;
 	private String photo;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "profiles")
+	protected Set<Integer> profile = new HashSet<>();
 
 	private User(String email, String password, String nickname, String photo) {
 		this.id = UUID.randomUUID().toString();
@@ -53,6 +65,14 @@ public class User {
 	public User toUpdatePassword(String newPassword) {
 		this.password = newPassword;
 		return this;
+	}
+
+	public Set<Profile> getPerfis() {
+		return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Profile perfil) {
+		this.profile.add(perfil.getCode());
 	}
 
 }
