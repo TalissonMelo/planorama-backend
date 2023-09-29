@@ -1,5 +1,10 @@
 package com.liberbox.user.controller.request;
 
-public record UserRequest(String email, String password, String nickname, String photo) {
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+public record UserRequest(@Email(message = "Email is mandatory") String email,
+		@NotBlank(message = "Password is mandatory") String password, 
+		@NotBlank(message = "Nickname is mandatory") String nickname, String photo) {
 
 }
