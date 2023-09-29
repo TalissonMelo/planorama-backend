@@ -2,6 +2,7 @@ package com.liberbox.user.service;
 
 import javax.transaction.Transactional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.liberbox.user.controller.request.UserRequest;
@@ -19,10 +20,11 @@ import lombok.RequiredArgsConstructor;
 public class PostUserService {
 
 	private final UserRepository repository;
+	private final BCryptPasswordEncoder encoder;
 
 	public UserResponse execute(UserRequest request) {
 
-		User user = User.to(request.email(), request.password(), request.nickname(), request.photo());
+		User user = User.to(request.email(), encoder.encode(request.password()), request.nickname(), request.photo());
 
 		user.addPerfil(Profile.USER);
 

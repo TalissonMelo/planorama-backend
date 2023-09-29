@@ -2,6 +2,7 @@ package com.liberbox.user.service;
 
 import javax.transaction.Transactional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.liberbox.user.controller.request.ChangePasswordRequest;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class ChangePasswordUserService {
 
 	private final UserRepository repository;
+	private final BCryptPasswordEncoder encoder;
 
 	public void execute(String userId, ChangePasswordRequest request) {
 
@@ -24,7 +26,7 @@ public class ChangePasswordUserService {
 
 		isValidPassword(user.getPassword(), request.oldPassword());
 
-		user.toUpdatePassword(request.newPassword());
+		user.toUpdatePassword(encoder.encode(request.newPassword()));
 
 		repository.save(user);
 	}
