@@ -26,7 +26,7 @@ public class ChangePasswordUserService {
 
 		isValidPassword(request.oldPassword(), user.getPassword());
 
-		user.toUpdatePassword(encoder.encode(request.newPassword()));
+		user.toUpdatedPassword(encoder.encode(request.newPassword()));
 
 		repository.save(user);
 	}

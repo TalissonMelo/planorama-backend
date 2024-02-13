@@ -18,7 +18,7 @@ public class DeleteUserIdService {
 		User user = repository.findByIdAndActive(userId)
 				.orElseThrow(() -> new IllegalArgumentException("User with ID: " + userId + " does not exist"));
 
-		user.disable();
+		user.disabled();
 		
 		repository.save(user);
 	}

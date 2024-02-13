@@ -55,28 +55,28 @@ public class User extends ToEntity implements Auditable {
 		return new User(email, password, nickname, photo);
 	}
 
-	public User disable() {
+	public User disabled() {
 		this.active = Boolean.FALSE;
 		return this;
 	}
 
-	public User toUpdate(String nickname, String photo) {
+	public User toUpdated(String nickname, String photo) {
 		this.nickname = nickname;
 		this.photo = photo;
 		return this;
 	}
 
-	public User toUpdatePassword(String newPassword) {
+	public User toUpdatedPassword(String newPassword) {
 		this.password = newPassword;
 		return this;
 	}
 
-	public Set<Profile> getPerfis() {
+	public Set<Profile> getProfiles() {
 		return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void addPerfil(Profile perfil) {
-		this.profile.add(perfil.getCode());
+	public void addProfile(Profile profile) {
+		this.profile.add(profile.getCode());
 	}
 
 	@Override

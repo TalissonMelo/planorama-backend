@@ -25,7 +25,12 @@ public class UserFilter extends OncePerRequestFilter {
 			UserContext.setCurrentUser(userIdHeader);
 		}
 
-		filterChain.doFilter(request, response);
+		try{
+			filterChain.doFilter(request, response);
+
+		}finally {
+			UserContext.clear();
+		}
 	}
 
 }

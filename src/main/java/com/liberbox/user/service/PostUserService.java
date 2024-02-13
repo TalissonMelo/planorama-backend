@@ -26,7 +26,7 @@ public class PostUserService {
 
 		User user = User.to(request.email(), encoder.encode(request.password()), request.nickname(), request.photo());
 
-		user.addPerfil(Profile.USER);
+		user.addProfile(Profile.USER);
 
 		repository.save(user);
 
