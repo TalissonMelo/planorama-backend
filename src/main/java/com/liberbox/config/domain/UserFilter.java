@@ -13,24 +13,24 @@ import lombok.NonNull;
 
 public class UserFilter extends OncePerRequestFilter {
 
-	private static final String USER_ID_HEADER = "X-UserID";
+    private static final String USER_ID_HEADER = "X-UserID";
 
-	@Override
-	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
-			@NonNull FilterChain filterChain) throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-		String userIdHeader = request.getHeader(USER_ID_HEADER);
+        String userIdHeader = request.getHeader(USER_ID_HEADER);
 
-		if (userIdHeader != null && !userIdHeader.isEmpty()) {
-			UserContext.setCurrentUser(userIdHeader);
-		}
+        if (userIdHeader != null && !userIdHeader.isEmpty()) {
+            UserContext.setCurrentUser(userIdHeader);
+        }
 
-		try{
-			filterChain.doFilter(request, response);
+        try {
+            filterChain.doFilter(request, response);
 
-		}finally {
-			UserContext.clear();
-		}
-	}
+        } finally {
+            UserContext.clear();
+        }
+    }
 
 }
