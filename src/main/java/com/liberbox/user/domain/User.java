@@ -32,8 +32,6 @@ public class User extends ToEntity implements Auditable {
 	@Column(unique = true)
 	private String email;
 	private String password;
-	
-	@Column(unique = true)
 	private String nickname;
 	private Boolean active;
 	private String phone;
