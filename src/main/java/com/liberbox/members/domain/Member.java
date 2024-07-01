@@ -22,23 +22,23 @@ public class Member extends ToEntity implements Auditable {
     @Id
     private String id;
 
-    private String idSchedule;
+    private String scheduleId;
 
     private String ownerId;
 
     @Enumerated(EnumType.STRING)
     private MemberType type;
 
-    private Member(String idSchedule, String ownerId, MemberType type) {
+    private Member(String scheduleId, String ownerId, MemberType type) {
         this.id = UUID.randomUUID().toString();
-        this.idSchedule = idSchedule;
+        this.scheduleId = scheduleId;
         this.ownerId = ownerId;
         this.type = type;
 
     }
 
-    public static Member to(String idSchedule, String ownerId, MemberType type) {
-        return new Member(idSchedule, ownerId, type);
+    public static Member to(String scheduleId, String ownerId, MemberType type) {
+        return new Member(scheduleId, ownerId, type);
     }
 
     @Override
