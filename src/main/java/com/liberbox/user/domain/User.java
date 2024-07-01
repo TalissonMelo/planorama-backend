@@ -36,23 +36,23 @@ public class User extends ToEntity implements Auditable {
 	@Column(unique = true)
 	private String nickname;
 	private Boolean active;
-	private String photo;
+	private String phone;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "profiles")
 	protected Set<Integer> profile = new HashSet<>();
 
-	private User(String email, String password, String nickname, String photo) {
+	private User(String email, String password, String nickname, String phone) {
 		this.id = UUID.randomUUID().toString();
 		this.active = Boolean.TRUE;
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
-		this.photo = photo;
+		this.phone = phone;
 	}
 
-	public static User to(String email, String password, String nickname, String photo) {
-		return new User(email, password, nickname, photo);
+	public static User to(String email, String password, String nickname, String phone) {
+		return new User(email, password, nickname, phone);
 	}
 
 	public User disabled() {
@@ -60,9 +60,9 @@ public class User extends ToEntity implements Auditable {
 		return this;
 	}
 
-	public User toUpdated(String nickname, String photo) {
+	public User toUpdated(String nickname, String phone) {
 		this.nickname = nickname;
-		this.photo = photo;
+		this.phone = phone;
 		return this;
 	}
 

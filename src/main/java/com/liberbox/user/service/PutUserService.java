@@ -23,7 +23,7 @@ public class PutUserService {
 		User user = repository.findByIdAndActive(userId)
 				.orElseThrow(() -> new IllegalArgumentException("User with ID: " + userId + " does not exist"));
 
-		user.toUpdated(request.nickname(), request.photo());
+		user.toUpdated(request.nickname(), request.phone());
 
 		repository.save(user);
 

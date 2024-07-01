@@ -24,7 +24,7 @@ public class PostUserService {
 
 	public UserResponse execute(UserRequest request) {
 
-		User user = User.to(request.email(), encoder.encode(request.password()), request.nickname(), request.photo());
+		User user = User.to(request.email(), encoder.encode(request.password()), request.nickname(), request.phone());
 
 		user.addProfile(Profile.USER);
 

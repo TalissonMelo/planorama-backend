@@ -72,7 +72,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		if (user.isPresent()) {
 			return new ResponseDto(user.get().getId(), user.get().getEmail(), user.get().getNickname(),
-					user.get().getPhoto(), token);
+					user.get().getPhone(), token);
 		}
 
 		throw new IllegalArgumentException(json().toString());

@@ -6,6 +6,6 @@ import com.liberbox.user.domain.User;
 public class UserMapper {
 
 	public static UserResponse extracted(User user) {
-		return new UserResponse(user.getId(), user.getEmail(), user.getNickname(), user.getPhoto());
+		return new UserResponse(user.getId(), user.getEmail(), user.getNickname(), user.getPhone());
 	}
 }
