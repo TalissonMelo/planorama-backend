@@ -21,8 +21,7 @@ public class ChangePasswordUserService {
 
 	public void execute(String userId, ChangePasswordRequest request) {
 
-		User user = repository.findByIdAndActive(userId)
-				.orElseThrow(() -> new IllegalArgumentException("User with ID: " + userId + " does not exist"));
+		User user = repository.findByIdAndActive(userId).orElseThrow(() -> new IllegalArgumentException("User with ID: " + userId + " does not exist"));
 
 		isValidPassword(request.oldPassword(), user.getPassword());
 

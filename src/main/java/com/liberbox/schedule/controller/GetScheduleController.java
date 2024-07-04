@@ -27,7 +27,7 @@ public class GetScheduleController {
 
         List<ScheduleResponse> response = service.execute();
 
-        return ResponseEntity.status(201).body(response);
+        return ResponseEntity.status(200).body(response);
 
     }
 }

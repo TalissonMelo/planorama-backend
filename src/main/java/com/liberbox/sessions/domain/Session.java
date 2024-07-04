@@ -29,22 +29,22 @@ public class Session extends ToEntity implements Auditable {
 
     private String description;
 
-    private String color;
+    private String legendId;
 
-    private String idSchedule;
+    private String scheduleId;
 
-    private Session(String title, LocalDateTime startTime, LocalDateTime endTime, String description, String color, String idSchedule) {
+    private Session(String title, LocalDateTime startTime, LocalDateTime endTime, String description, String legendId, String scheduleId) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         this.description = description;
-        this.color = color;
-        this.idSchedule = idSchedule;
+        this.legendId = legendId;
+        this.scheduleId = scheduleId;
     }
 
-    public static Session to(String title, LocalDateTime startTime, LocalDateTime endTime, String description, String color, String idSchedule) {
-        return new Session(title, startTime, endTime, description, color, idSchedule);
+    public static Session to(String title, LocalDateTime startTime, LocalDateTime endTime, String description, String legendId, String scheduleId) {
+        return new Session(title, startTime, endTime, description, legendId, scheduleId);
     }
 
     @Override

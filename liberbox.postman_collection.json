@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "001d6b98-72ff-4e71-a764-0fd765f1b3de",
+		"_postman_id": "3d4fe74c-45c6-4f01-8e8d-75d3361ee84d",
 		"name": "liberbox",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30122345"
+		"_exporter_id": "9138560",
+		"_collection_link": "https://solar-zodiac-578055.postman.co/workspace/Petize-easyaba~c794d4cd-4a07-48e9-934d-9aaad8356c45/collection/9138560-3d4fe74c-45c6-4f01-8e8d-75d3361ee84d?action=share&source=collection_link&creator=9138560"
 	},
 	"item": [
 		{
@@ -16,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"talissonmelo@email.com.br\",\r\n    \"password\": \"1234567\",\r\n    \"nickname\": \"Talisson_Mello\",\r\n    \"photo\": null\r\n}",
+							"raw": "{\r\n    \"email\": \"talissonmelo@email.com.br\",\r\n    \"password\": \"1234567\",\r\n    \"nickname\": \"Talisson Melo Rodrigues\",\r\n    \"phone\": \"34992319200\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"talissonmelo@email.com.br\",\r\n    \"password\": \"1234567\"\r\n}",
+							"raw": "{\r\n    \"email\": \"talissonmelo@email.com.br\",\r\n    \"password\": \"@liberbox*2024\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,34 +69,34 @@
 				},
 				{
 					"name": "List User",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNjI0NzU5fQ.58SF4jJW5zPOXm2ea_QoUqXxAStL6Th1Y_lH8fSITuYJmOSJoV8qWarVsZXHCV0Pt0gHKldsrNpIXzmiGzt7bw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNjk2NjEwNzQ5fQ.oTHEQWagBKcq0LUsi3QARQeYaHLKtdyDiyY3BV3Pg_ypUHaPevAOi6axyyvfdrC61odyX5qw8ix5ZJlJ4O6Gqg",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "X-UserID",
 								"value": "",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"talisson@email.com.br\",\r\n    \"password\": \"1234567\",\r\n    \"nickname\": \"Talisson\",\r\n    \"photo\": null\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/v1/users/8f309fbe-50ad-4001-b031-5633b0fddc6e",
+							"raw": "http://localhost:8080/v1/users/5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -104,7 +105,7 @@
 							"path": [
 								"v1",
 								"users",
-								"8f309fbe-50ad-4001-b031-5633b0fddc6e"
+								"5c0294c3-a88c-4e7e-a527-dc43f8231dc3"
 							]
 						}
 					},
@@ -113,22 +114,27 @@
 				{
 					"name": "Update User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc2OTk1fQ.LznjbW826jGM5st6XYIwOwWqMjmRK7g75GrMrl4kHAsC55edzaD4Fr5K62pg_gN0L8XSioGpaXM_9iJO0yFFKQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNjk2NjEwNzQ5fQ.oTHEQWagBKcq0LUsi3QARQeYaHLKtdyDiyY3BV3Pg_ypUHaPevAOi6axyyvfdrC61odyX5qw8ix5ZJlJ4O6Gqg",
-								"type": "text"
-							},
-							{
 								"key": "X-UserID",
-								"value": "8f309fbe-50ad-4001-b031-5633b0fddc6e",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nickname\": \"Talisson\",\r\n    \"photo\": null\r\n}",
+							"raw": "{\r\n    \"nickname\": \"Talisson\",\r\n    \"phone\": \"34992319000\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,7 +142,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v1/users/8f309fbe-50ad-4001-b031-5633b0fddc6e",
+							"raw": "http://localhost:8080/v1/users/5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -145,7 +151,7 @@
 							"path": [
 								"v1",
 								"users",
-								"8f309fbe-50ad-4001-b031-5633b0fddc6e"
+								"5c0294c3-a88c-4e7e-a527-dc43f8231dc3"
 							]
 						}
 					},
@@ -154,12 +160,23 @@
 				{
 					"name": "Change Password",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc2OTk1fQ.LznjbW826jGM5st6XYIwOwWqMjmRK7g75GrMrl4kHAsC55edzaD4Fr5K62pg_gN0L8XSioGpaXM_9iJO0yFFKQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNjk2NjEzMjM4fQ.CTyL9roDLZgknqGDhFr6juoBe6TeuzAqLJDEcPurBUGjus6r1aOGlbmg3sAkgFu3t154rTrP747o7q1zFNQHBw",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "X-UserID",
@@ -177,7 +194,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v1/users/f9420b7b-37b9-4cc2-87c2-6b3ec9d0bdb5/password",
+							"raw": "http://localhost:8080/v1/users/5c0294c3-a88c-4e7e-a527-dc43f8231dc3/password",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -186,8 +203,424 @@
 							"path": [
 								"v1",
 								"users",
-								"f9420b7b-37b9-4cc2-87c2-6b3ec9d0bdb5",
+								"5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
 								"password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user change password",
+			"item": [
+				{
+					"name": "Change Code",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"talissonmelo@email.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users/passwords",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"passwords"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid Code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"3BQCE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users/passwords/codes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"passwords",
+								"codes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc2OTk1fQ.LznjbW826jGM5st6XYIwOwWqMjmRK7g75GrMrl4kHAsC55edzaD4Fr5K62pg_gN0L8XSioGpaXM_9iJO0yFFKQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": \"FOL6B\",\r\n  \"email\": \"talissonmelo@email.com.br\",\r\n  \"newPassword\": \"@liberbox*2024\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users/passwords/codes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users",
+								"passwords",
+								"codes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "shedule",
+			"item": [
+				{
+					"name": "CREATED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc4MjIyfQ.jcBIWj676iqExBBRaCM81vLS_tGrn2iaVZCAEqs8M4kjvtwuuTDTZimLScvEa3JXDOxOtp4jTQN_zrxJ6m3iwg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Turma 9º I\",\r\n  \"startTime\": \"08:00:00\",\r\n  \"endTime\": \"13:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LISTED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc4MjIyfQ.jcBIWj676iqExBBRaCM81vLS_tGrn2iaVZCAEqs8M4kjvtwuuTDTZimLScvEa3JXDOxOtp4jTQN_zrxJ6m3iwg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/v1/schedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc4MjIyfQ.jcBIWj676iqExBBRaCM81vLS_tGrn2iaVZCAEqs8M4kjvtwuuTDTZimLScvEa3JXDOxOtp4jTQN_zrxJ6m3iwg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/v1/schedule/1f5fde45-59b9-466e-8cbc-e8926c455395",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"schedule",
+								"1f5fde45-59b9-466e-8cbc-e8926c455395"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc4MjIyfQ.jcBIWj676iqExBBRaCM81vLS_tGrn2iaVZCAEqs8M4kjvtwuuTDTZimLScvEa3JXDOxOtp4jTQN_zrxJ6m3iwg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Turma 9º IV\",\r\n  \"startTime\": \"08:00:00\",\r\n  \"endTime\": \"13:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/schedule/466820ea-9be9-4c74-90d4-60e6aaa2e75e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"schedule",
+								"466820ea-9be9-4c74-90d4-60e6aaa2e75e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "members",
+			"item": [
+				{
+					"name": "CREATED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc4MjIyfQ.jcBIWj676iqExBBRaCM81vLS_tGrn2iaVZCAEqs8M4kjvtwuuTDTZimLScvEa3JXDOxOtp4jTQN_zrxJ6m3iwg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n  \"scheduleId\": \"6dd09493-56ec-422f-b654-7ab346ab6191\",\r\n  \"ownerId\": \"5c0294c3-a88c-4e7e-a527-dc43f8231dc3\",\r\n  \"type\": \"EDITOR\"\r\n}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LISTED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc4MjIyfQ.jcBIWj676iqExBBRaCM81vLS_tGrn2iaVZCAEqs8M4kjvtwuuTDTZimLScvEa3JXDOxOtp4jTQN_zrxJ6m3iwg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/v1/schedule/6dd09493-56ec-422f-b654-7ab346ab6191/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"schedule",
+								"6dd09493-56ec-422f-b654-7ab346ab6191",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETED",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWxpc3Nvbm1lbG9AZW1haWwuY29tLmJyIiwiZXhwIjoxNzIwNDc4MjIyfQ.jcBIWj676iqExBBRaCM81vLS_tGrn2iaVZCAEqs8M4kjvtwuuTDTZimLScvEa3JXDOxOtp4jTQN_zrxJ6m3iwg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-UserID",
+								"value": "5c0294c3-a88c-4e7e-a527-dc43f8231dc3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/v1/members/2c6c32e8-efb8-472e-8d48-3be331ca63c0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"members",
+								"2c6c32e8-efb8-472e-8d48-3be331ca63c0"
 							]
 						}
 					},

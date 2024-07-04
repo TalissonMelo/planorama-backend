@@ -1,0 +1,41 @@
+package com.liberbox.user.service;
+
+import com.liberbox.sms.TwilioService;
+import com.liberbox.user.controller.request.SendEmailRequest;
+import com.liberbox.user.controller.response.PhoneResponse;
+import com.liberbox.user.domain.RecoveryCode;
+import com.liberbox.user.domain.User;
+import com.liberbox.user.domain.enums.CodeType;
+import com.liberbox.user.repository.RecoveryCodeRepository;
+import com.liberbox.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class SendPhoneCodeService {
+
+    private final TwilioService twilioService;
+    private final UserRepository userRepository;
+    private final RecoveryCodeRepository recoveryCodeRepository;
+    private final RecoveryCodeGeneratorService recoveryCodeGeneratorService;
+
+    public PhoneResponse execute(SendEmailRequest request) {
+
+        User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new IllegalArgumentException("User does not exist"));
+
+        String newCode = recoveryCodeGeneratorService.generateNewCode();
+
+        RecoveryCode recoveryCode = RecoveryCode.of(newCode, CodeType.PASSWORD_RECOVERY, 15, user.getEmail(), user.getEmail(), user.getPhone());
+
+        recoveryCodeRepository.save(recoveryCode);
+
+        twilioService.sendVerificationCode(user.getPhone(), user.getNickname(), recoveryCode.getCode());
+
+        return new PhoneResponse(user.getPhone());
+    }
+
+}
