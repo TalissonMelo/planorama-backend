@@ -35,7 +35,16 @@ public class SendPhoneCodeService {
 
         twilioService.sendVerificationCode(user.getPhone(), user.getNickname(), recoveryCode.getCode());
 
-        return new PhoneResponse(user.getPhone());
+        return new PhoneResponse(maskPhoneNumber(user.getPhone()));
     }
 
+    public static String maskPhoneNumber(String phone) {
+        if (phone.length() < 6) {
+            throw new IllegalArgumentException("O número de telefone deve ter pelo menos 6 caracteres.");
+        }
+
+        String firstFive = phone.substring(0, 5);
+        String lastOne = phone.substring(phone.length() - 1);
+        return firstFive + "*******" + lastOne;
+    }
 }
