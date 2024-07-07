@@ -39,11 +39,11 @@ public class ChangePasswordService {
 
 
         if (recoveryCodeOptional.isEmpty()) {
-            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.WRONG_CODE, false), "");
+            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.WRONG_CODE, false), "", "");
         }
 
         if (!recoveryCodeOptional.get().getCodeType().equals(CodeType.PASSWORD_CHANGE)) {
-            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.WRONG_TYPE, false), "");
+            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.WRONG_TYPE, false), "", "");
         }
 
         var response = codeIsValidService.verifyIfIsValid(recoveryCodeOptional.get(), false);

@@ -4,9 +4,9 @@ import com.liberbox.user.domain.enums.InvalidCodeCause;
 
 import java.util.Map;
 
-public record CodeIsValidResponse(boolean isValid, InvalidCodeCause invalidCodeCause, String newCode) {
+public record CodeIsValidResponse(boolean isValid, InvalidCodeCause invalidCodeCause, String newCode, String email) {
 
-    public static CodeIsValidResponse of(Map<InvalidCodeCause, Boolean> validMap, String newCode) {
+    public static CodeIsValidResponse of(Map<InvalidCodeCause, Boolean> validMap, String newCode, String email) {
 
         return new CodeIsValidResponse(validMap.values()
                 .stream()
@@ -16,6 +16,7 @@ public record CodeIsValidResponse(boolean isValid, InvalidCodeCause invalidCodeC
                         .stream()
                         .findFirst()
                         .get(),
-                newCode);
+                newCode,
+                email);
     }
 }

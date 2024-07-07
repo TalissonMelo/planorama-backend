@@ -29,7 +29,7 @@ public class CodeIsValidService {
 
 
         if (recoveryCodeOptional.isEmpty()) {
-            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.WRONG_CODE, false), "");
+            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.WRONG_CODE, false), "", "");
         }
 
         return verifyIfIsValid(recoveryCodeOptional.get(), true);
@@ -39,16 +39,16 @@ public class CodeIsValidService {
     public CodeIsValidResponse verifyIfIsValid(RecoveryCode recoveryCode, boolean generateNewCode) {
 
         if (recoveryCode.getExpirationDate().isBefore(LocalDateTime.now())) {
-            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.EXPIRATED, false), "");
+            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.EXPIRATED, false), "", "");
         }
         if (recoveryCode.isWasUsed()) {
-            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.ALREADY_USED, false), "");
+            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.ALREADY_USED, false), "", "");
         }
         recoveryCode.useCode();
         if (generateNewCode) {
-            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.IS_VALID, true), generateAndSaveNewCodeForChangePassword(recoveryCode.getEmail(), recoveryCode.getLogin(), recoveryCode.getPhone()));
+            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.IS_VALID, true), generateAndSaveNewCodeForChangePassword(recoveryCode.getEmail(), recoveryCode.getLogin(), recoveryCode.getPhone()), recoveryCode.getEmail());
         } else {
-            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.IS_VALID, true), "");
+            return CodeIsValidResponse.of(Map.of(InvalidCodeCause.IS_VALID, true), "", recoveryCode.getEmail());
         }
     }
 
