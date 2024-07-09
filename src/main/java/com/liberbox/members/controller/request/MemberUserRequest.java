@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public record MemberUserRequest(@Email(message = "Email is mandatory") String email,
-                                @NotBlank(message = "Password is mandatory") String password,
                                 @NotBlank(message = "Nickname is mandatory") String nickname,
                                 @NotBlank  String phone,
                                 @NotBlank String scheduleId,

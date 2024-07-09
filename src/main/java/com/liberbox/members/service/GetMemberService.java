@@ -23,7 +23,7 @@ public class GetMemberService {
 
         List<Member> members = memberRepository.listMemberToScheduleId(scheduleId);
 
-        List<User> users = userRepository.findAllById(members.stream().map(member -> member.getUserId()).collect(Collectors.toList()));
+        List<User> users = userRepository.findAllById(members.stream().map(member -> member.getOwnerId()).collect(Collectors.toList()));
 
         return members.stream().map(member -> new MemberResponse(member.getId(),
                 member.getScheduleId(),
@@ -34,7 +34,7 @@ public class GetMemberService {
 
     private MemberUserResponse toMemberUser(Member member, List<User> users) {
         return users.stream()
-                .filter(user -> user.getId().equals(member.getUserId()))
+                .filter(user -> user.getId().equals(member.getOwnerId()))
                 .map(user -> new MemberUserResponse(user.getId(), user.getNickname(), user.getEmail(), user.getPhone(), member.getType())).findFirst()
                 .orElse(null);
     }
