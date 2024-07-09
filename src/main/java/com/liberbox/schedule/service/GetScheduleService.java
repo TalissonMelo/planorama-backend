@@ -23,6 +23,7 @@ public class GetScheduleService {
 
         return schedules.stream().map(schedule -> new ScheduleResponse(schedule.getId(),
                 schedule.getName(),
+                schedule.getUserId(),
                 schedule.getStartTime(),
                 schedule.getEndTime())).collect(Collectors.toList());
 

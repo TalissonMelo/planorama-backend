@@ -26,6 +26,7 @@ public class PostScheduleService {
 
         return new ScheduleResponse(schedule.getId(),
                 schedule.getName(),
+                UserContext.getCurrentUser(),
                 schedule.getStartTime(),
                 schedule.getEndTime());
 

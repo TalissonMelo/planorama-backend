@@ -31,6 +31,7 @@ public class PutScheduleService {
 
 		return new ScheduleResponse(schedule.getId(),
 				schedule.getName(),
+				schedule.getUserId(),
 				schedule.getStartTime(),
 				schedule.getEndTime());
 	}

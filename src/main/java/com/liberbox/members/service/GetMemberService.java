@@ -35,7 +35,7 @@ public class GetMemberService {
     private MemberUserResponse toMemberUser(Member member, List<User> users) {
         return users.stream()
                 .filter(user -> user.getId().equals(member.getUserId()))
-                .map(user -> new MemberUserResponse(user.getId(), user.getNickname(), member.getType())).findFirst()
+                .map(user -> new MemberUserResponse(user.getId(), user.getNickname(), user.getEmail(), user.getPhone(), member.getType())).findFirst()
                 .orElse(null);
     }
 

@@ -19,6 +19,8 @@ public class PutLegendService {
 
         legend.update(request.color(), request.description());
 
+        legendRepository.save(legend);
+
         return toLegend(legend);
 
     }

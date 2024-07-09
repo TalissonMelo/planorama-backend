@@ -10,4 +10,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, String> {
 
     @Query("SELECT s FROM Schedule s WHERE s.userId = :currentUser")
     List<Schedule> findByUserId(String currentUser);
+
+    @Query("SELECT s.name FROM Schedule s WHERE s.id = :scheduleId")
+    String listById(String scheduleId);
 }
