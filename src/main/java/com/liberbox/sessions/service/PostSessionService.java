@@ -16,21 +16,10 @@ public class PostSessionService {
 
     private final SessionRepository sessionRepository;
 
-    public SessionResponse execute(SessionRequest request) {
+    public void execute(SessionRequest request) {
         Session session = Session.to(request.title(), request.startTime(), request.endTime(), request.description(), request.legendId(), request.scheduleId());
 
         sessionRepository.save(session);
 
-        return toSessionResponse(session);
-    }
-
-    private SessionResponse toSessionResponse(Session session) {
-        return new SessionResponse(session.getId(),
-                session.getScheduleId(),
-                session.getLegendId(),
-                session.getTitle(),
-                session.getStartTime(),
-                session.getEndTime(),
-                session.getDescription());
     }
 }

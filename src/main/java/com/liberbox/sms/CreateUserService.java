@@ -13,7 +13,7 @@ public class CreateUserService {
 
     private final TwilioConfig twilioConfig;
 
-    public void sendVerificationCode(String schedule, String userName, String phone, String password, String email) {
+    public void sendVerificationCode(String schedule, String userName, String phone, String email) {
 
         Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
 
@@ -21,10 +21,10 @@ public class CreateUserService {
                 "Sistema liberbox.\n" +
                         "Olá, %s.\n" +
                         "Você foi convidado para participar da agenda: .\n%s\n" +
-                        "Primeiro acesso utilize o email e a senha.\n" +
+                        "Primeiro acesso utilize o email:.\n" +
                         "Email: %s\n" +
-                        "Senha: %s",
-                userName, schedule, email, password
+                        "Senha: utilize Esqueceu a senha?",
+                userName, schedule, email
         );
 
 

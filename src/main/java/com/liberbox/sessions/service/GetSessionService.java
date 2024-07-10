@@ -2,6 +2,7 @@ package com.liberbox.sessions.service;
 
 import com.liberbox.legend.controller.response.LegendResponse;
 import com.liberbox.legend.service.GetLegendIdService;
+import com.liberbox.sessions.controller.response.ColorResponse;
 import com.liberbox.sessions.controller.response.SessionResponse;
 import com.liberbox.sessions.domain.Session;
 import com.liberbox.sessions.repository.SessionRepository;
@@ -39,7 +40,8 @@ public class GetSessionService {
                 session.getDescription());
     }
 
-    private String toColor(String legendId, List<LegendResponse> legendResponses) {
-        return legendResponses.stream().filter(legendResponse -> legendResponse.id().equals(legendId)).findFirst().map(legendResponse -> legendResponse.color()).orElse(null);
+    private ColorResponse toColor(String legendId, List<LegendResponse> legendResponses) {
+        String color = legendResponses.stream().filter(legendResponse -> legendResponse.id().equals(legendId)).findFirst().map(legendResponse -> legendResponse.color()).orElse(null);
+        return new ColorResponse(color, color);
     }
 }

@@ -1,7 +1,6 @@
 package com.liberbox.sessions.controller;
 
 import com.liberbox.sessions.controller.request.SessionRequest;
-import com.liberbox.sessions.controller.response.SessionResponse;
 import com.liberbox.sessions.service.PostSessionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +19,11 @@ public class PostSessionController {
     private final PostSessionService service;
 
     @PostMapping("/v1/sessions")
-    public ResponseEntity<SessionResponse> execute(@Valid @RequestBody SessionRequest request) {
+    public ResponseEntity<Void> execute(@Valid @RequestBody SessionRequest request) {
 
-        SessionResponse response = service.execute(request);
+        service.execute(request);
 
-        return ResponseEntity.status(201).body(response);
+        return ResponseEntity.status(201).body(null);
 
     }
 }
