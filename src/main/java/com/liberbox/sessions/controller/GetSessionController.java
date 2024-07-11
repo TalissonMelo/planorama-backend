@@ -21,7 +21,7 @@ public class GetSessionController {
 
     private final GetSessionService service;
 
-    @GetMapping("/v1/schedule/{scheduleId}/session")
+    @GetMapping("/v1/schedule/{scheduleId}/sessions")
     public ResponseEntity<List<SessionResponse>> execute(@PathVariable String scheduleId) {
 
         List<SessionResponse> response = service.execute(scheduleId);

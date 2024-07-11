@@ -56,4 +56,9 @@ public class Session extends ToEntity implements Auditable {
     public String getEntityName() {
         return getClass().getSimpleName();
     }
+
+    public Session update(String description) {
+        this.description = description;
+        return this;
+    }
 }
