@@ -20,9 +20,9 @@ public class GetSessionService {
     private final SessionRepository sessionRepository;
     private final GetLegendIdService getLegendIdService;
 
-    public List<SessionResponse> execute(String scheduleId) {
+    public List<SessionResponse> execute(String scheduleId, int month, int year) {
 
-        List<Session> sessions = sessionRepository.findByScheduleId(scheduleId);
+        List<Session> sessions = sessionRepository.findByScheduleId(scheduleId, month, year);
 
         List<LegendResponse> legendResponses = getLegendIdService.execute(sessions.stream().map(session -> session.getLegendId()).collect(Collectors.toList()));
 

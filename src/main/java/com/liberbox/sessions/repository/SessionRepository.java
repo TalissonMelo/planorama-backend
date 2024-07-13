@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface SessionRepository extends JpaRepository<Session, String> {
 
-    @Query("SELECT s FROM Session s WHERE s.scheduleId = :scheduleId")
-    List<Session> findByScheduleId(String scheduleId);
+    @Query("SELECT s " +
+            "FROM Session s " +
+            "WHERE s.scheduleId = :scheduleId " +
+            "AND MONTH(s.startTime) = :month " +
+            "AND YEAR(s.startTime) = :year ")
+    List<Session> findByScheduleId(String scheduleId, int month, int year);
 
     @Query("SELECT s.legendId FROM Session s WHERE s.scheduleId = :scheduleId")
     List<String> findLegendIdByScheduleId(String scheduleId);
