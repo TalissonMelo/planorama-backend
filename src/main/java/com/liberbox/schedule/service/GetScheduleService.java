@@ -18,7 +18,7 @@ public class GetScheduleService {
 
     public List<ScheduleResponse> execute() {
 
-       List<Schedule> schedules = scheduleRepository.findByUserId(UserContext.getCurrentUser());
+        List<Schedule> schedules = scheduleRepository.findByUserId(UserContext.getCurrentUser());
 
 
         return schedules.stream().map(schedule -> new ScheduleResponse(schedule.getId(),
