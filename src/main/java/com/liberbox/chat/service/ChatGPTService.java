@@ -3,6 +3,7 @@ package com.liberbox.chat.service;
 import com.liberbox.chat.request.ChatGptRequest;
 import com.liberbox.chat.request.Message;
 import com.liberbox.chat.response.ChatGptResponse;
+import com.liberbox.chat.response.ChatRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,7 @@ public class ChatGPTService {
     @Autowired
     private RestTemplate template;
 
-    public String chat(String content) {
+    public ChatRequest chat(String content) {
 
         log.info("Starting Prompt");
 
@@ -34,7 +35,7 @@ public class ChatGPTService {
         ChatGptResponse response =
                 template.postForObject(url, request, ChatGptResponse.class);
 
-        return response.getChoices().get(0).getMessage().content();
+        return new ChatRequest(response.getChoices().get(0).getMessage().content());
     }
 }
 

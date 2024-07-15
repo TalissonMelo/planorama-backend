@@ -16,7 +16,7 @@ public class ChatGPTController {
     private final ChatGPTService service;
 
     @PostMapping("/v1/chat")
-    public String execute(@Valid @RequestBody ChatRequest request) {
+    public ChatRequest execute(@Valid @RequestBody ChatRequest request) {
         return service.chat(request.content());
     }
 
