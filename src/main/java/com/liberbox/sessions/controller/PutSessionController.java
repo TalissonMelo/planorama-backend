@@ -18,6 +18,7 @@ public class PutSessionController {
 
     private final PutSessionService service;
 
+
     @PutMapping("/v1/sessions/{sessionId}")
     public ResponseEntity<Void> execute(@PathVariable String sessionId, @Valid @RequestBody PutSessionRequest request) {
 

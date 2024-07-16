@@ -7,6 +7,7 @@ import com.liberbox.sessions.repository.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,9 @@ public class GetLegendSessionService {
 
         List<Legend> legends = legendRepository.findAllById(legendIds);
 
-        return legends.stream().map(legend -> toLegend(legend)).collect(Collectors.toList());
+        return legends.stream().map(legend -> toLegend(legend))
+                .sorted(Comparator.comparing(legendResponse -> legendResponse.description().length()))
+                .collect(Collectors.toList());
 
     }
 

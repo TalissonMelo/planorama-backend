@@ -1,9 +1,7 @@
 package com.liberbox.schedule.controller;
 
-import com.liberbox.schedule.controller.response.ScheduleDailyResponse;
-import com.liberbox.schedule.controller.response.ScheduleResponse;
-import com.liberbox.schedule.service.GetScheduleMemberService;
-import com.liberbox.schedule.service.GetScheduleService;
+import com.liberbox.schedule.controller.response.ScheduleFreeTimeResponse;
+import com.liberbox.schedule.service.GetScheduleMemberTimesService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,14 +16,14 @@ import java.util.List;
 @Tag(name = "schedule")
 @RestController
 @RequiredArgsConstructor
-public class GetScheduleMemberController {
+public class GetScheduleMemberTimesController {
 
-    private final GetScheduleMemberService service;
+    private final GetScheduleMemberTimesService service;
 
-    @GetMapping("/v1/schedules")
-    public ResponseEntity<List<ScheduleDailyResponse>> execute(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    @GetMapping("/v1/schedules/free-times")
+    public ResponseEntity<List<ScheduleFreeTimeResponse>> execute(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 
-        List<ScheduleDailyResponse> response = service.execute(date);
+        List<ScheduleFreeTimeResponse> response = service.execute(date);
 
         return ResponseEntity.status(200).body(response);
 

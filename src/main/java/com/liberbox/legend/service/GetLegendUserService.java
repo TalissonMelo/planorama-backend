@@ -6,6 +6,7 @@ import com.liberbox.legend.repostiory.LegendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,9 @@ public class GetLegendUserService {
 
         List<Legend> legends = legendRepository.findAllByOwnerId(userId);
 
-        return legends.stream().map(legend -> toLegend(legend)).collect(Collectors.toList());
+        return legends.stream().map(legend -> toLegend(legend))
+                .sorted(Comparator.comparing(LegendResponse::description))
+                .collect(Collectors.toList());
 
     }
 

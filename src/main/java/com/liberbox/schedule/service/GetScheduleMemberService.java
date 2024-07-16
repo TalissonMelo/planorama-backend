@@ -22,17 +22,18 @@ public class GetScheduleMemberService {
     private final ScheduleRepository scheduleRepository;
     private final SessionRepository sessionRepository;
 
-    public List<ScheduleDailyResponse> execute() {
+    public List<ScheduleDailyResponse> execute(LocalDate date) {
 
         List<Schedule> schedules = scheduleRepository.findByUserId(UserContext.getCurrentUser());
 
-        List<Session> sessions = sessionRepository.findByScheduleIdsAndDate(schedules.stream().map(schedule -> schedule.getId()).collect(Collectors.toList()), LocalDate.now());
+        List<Session> sessions = sessionRepository.findByScheduleIdsAndDate(schedules.stream().map(schedule -> schedule.getId()).collect(Collectors.toList()), date);
 
         return schedules.stream().map(schedule -> new ScheduleDailyResponse(schedule.getId(),
                         schedule.getName(),
                         schedule.getStartTime(),
                         schedule.getEndTime(),
                         toSessions(schedule.getId(), sessions)))
+                .filter(scheduleDailyResponse -> scheduleDailyResponse.sessions().size() > 0)
                 .sorted(Comparator.comparing(ScheduleDailyResponse::startTime))
                 .collect(Collectors.toList());
     }

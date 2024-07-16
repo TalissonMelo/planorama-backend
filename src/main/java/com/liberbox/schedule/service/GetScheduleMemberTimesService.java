@@ -1,0 +1,87 @@
+package com.liberbox.schedule.service;
+
+import com.liberbox.config.domain.UserContext;
+import com.liberbox.schedule.controller.response.ScheduleDailyResponse;
+import com.liberbox.schedule.controller.response.ScheduleFreeTimeResponse;
+import com.liberbox.schedule.controller.response.ScheduleTimeResponse;
+import com.liberbox.schedule.domain.Schedule;
+import com.liberbox.schedule.repository.ScheduleRepository;
+import com.liberbox.sessions.domain.Session;
+import com.liberbox.sessions.repository.SessionRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class GetScheduleMemberTimesService {
+
+    private final ScheduleRepository scheduleRepository;
+    private final SessionRepository sessionRepository;
+
+    public List<ScheduleFreeTimeResponse> execute(LocalDate date) {
+        List<Schedule> schedules = scheduleRepository.findByUserId(UserContext.getCurrentUser());
+        List<Session> sessions = sessionRepository.findByScheduleIdsAndDate(
+                schedules.stream().map(Schedule::getId).collect(Collectors.toList()),
+                date
+        );
+
+        return schedules.stream()
+                .map(schedule -> new ScheduleDailyResponse(
+                        schedule.getId(),
+                        schedule.getName(),
+                        schedule.getStartTime(),
+                        schedule.getEndTime(),
+                        toSessions(schedule.getId(), sessions)
+                ))
+                .map(this::getScheduleWithFreeTimes)
+                .filter(scheduleFreeTimeResponse -> scheduleFreeTimeResponse.times().size() > 0)
+                .collect(Collectors.toList());
+    }
+
+
+    private ScheduleFreeTimeResponse getScheduleWithFreeTimes(ScheduleDailyResponse scheduleDailyResponse) {
+        String id = scheduleDailyResponse.id();
+        String title = scheduleDailyResponse.name();
+        List<Session> sessions = scheduleDailyResponse.sessions();
+        LocalTime startTime = scheduleDailyResponse.startTime();
+        LocalTime endTime = scheduleDailyResponse.endTime();
+
+        List<LocalTime> allPossibleTimes = new ArrayList<>();
+        LocalTime current = startTime;
+        while (current.isBefore(endTime)) {
+            allPossibleTimes.add(current);
+            current = current.plusMinutes(30);
+        }
+
+        List<LocalTime> freeTimes = allPossibleTimes.stream()
+                .filter(time -> sessions.stream()
+                        .noneMatch(session -> isTimeWithinSession(time, session)))
+                .collect(Collectors.toList());
+
+        List<ScheduleTimeResponse> freeTimeResponses = freeTimes.stream()
+                .map(time -> new ScheduleTimeResponse(time, time.plusMinutes(30)))
+                .collect(Collectors.toList());
+
+        return new ScheduleFreeTimeResponse(id, title, freeTimeResponses);
+    }
+
+
+    private boolean isTimeWithinSession(LocalTime time, Session session) {
+        LocalTime sessionStartTime = session.getStartTime().toLocalTime();
+        LocalTime sessionEndTime = session.getEndTime().toLocalTime();
+        return !time.isBefore(sessionStartTime) && time.isBefore(sessionEndTime);
+    }
+
+    private List<Session> toSessions(String scheduleId, List<Session> sessions) {
+        return sessions.stream()
+                .filter(session -> session.getScheduleId().equals(scheduleId))
+                .collect(Collectors.toList());
+    }
+}
