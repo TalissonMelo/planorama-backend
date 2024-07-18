@@ -1,17 +1,23 @@
 package com.liberbox.chat.service;
 
+import com.liberbox.chat.domain.Chat;
+import com.liberbox.chat.repository.ChatRepository;
 import com.liberbox.chat.request.ChatGptRequest;
 import com.liberbox.chat.request.Message;
 import com.liberbox.chat.response.ChatGptResponse;
 import com.liberbox.chat.response.ChatRequest;
+import com.liberbox.config.domain.UserContext;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 
+@RequiredArgsConstructor
+@Transactional
 @Service
 @Slf4j
 public class ChatGPTService {
@@ -22,18 +28,18 @@ public class ChatGPTService {
     @Value("${openai.api.url}")
     private String url;
 
-    @Autowired
-    private RestTemplate template;
+    private final RestTemplate template;
+    private final ChatRepository chatRepository;
 
-    public ChatRequest chat(String content) {
+    public ChatRequest chat(String sessionId, String content) {
 
-        log.info("Starting Prompt");
+        Chat chat = Chat.to(UserContext.getCurrentUser(), sessionId, content);
+
+        chatRepository.save(chat);
 
         ChatGptRequest request = new ChatGptRequest(model, Arrays.asList(new Message("user", content)));
 
-        log.info("Processing Prompt");
-        ChatGptResponse response =
-                template.postForObject(url, request, ChatGptResponse.class);
+        ChatGptResponse response = template.postForObject(url, request, ChatGptResponse.class);
 
         return new ChatRequest(response.getChoices().get(0).getMessage().content());
     }

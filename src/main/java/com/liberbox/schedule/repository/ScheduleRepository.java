@@ -11,7 +11,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, String> {
     @Query("SELECT DISTINCT s " +
             "FROM Schedule s " +
             "INNER JOIN Member m ON m.scheduleId = s.id " +
-            "WHERE s.userId = :currentUser OR m.ownerId = :currentUser ")
+            "WHERE s.userId = :currentUser OR m.ownerId = :currentUser " +
+            "ORDER BY s.name ")
     List<Schedule> findByUserId(String currentUser);
 
     @Query("SELECT s.name FROM Schedule s WHERE s.id = :scheduleId")
