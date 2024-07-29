@@ -26,6 +26,11 @@ public class GetScheduleMemberTimesService {
     private final SessionRepository sessionRepository;
 
     public List<ScheduleFreeTimeResponse> execute(LocalDate date) {
+
+        if(LocalDate.now().isAfter(date)) {
+            return new ArrayList<>();
+        }
+
         List<Schedule> schedules = scheduleRepository.findByUserId(UserContext.getCurrentUser());
         List<Session> sessions = sessionRepository.findByScheduleIdsAndDate(
                 schedules.stream().map(Schedule::getId).collect(Collectors.toList()),
