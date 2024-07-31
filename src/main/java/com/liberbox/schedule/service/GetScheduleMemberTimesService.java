@@ -25,9 +25,9 @@ public class GetScheduleMemberTimesService {
     private final ScheduleRepository scheduleRepository;
     private final SessionRepository sessionRepository;
 
-    public List<ScheduleFreeTimeResponse> execute(LocalDate date) {
+    public List<ScheduleFreeTimeResponse> execute(LocalDate date, Integer minutes) {
 
-        if(LocalDate.now().isAfter(date)) {
+        if (LocalDate.now().isAfter(date)) {
             return new ArrayList<>();
         }
 
@@ -45,13 +45,13 @@ public class GetScheduleMemberTimesService {
                         schedule.getEndTime(),
                         toSessions(schedule.getId(), sessions)
                 ))
-                .map(this::getScheduleWithFreeTimes)
+                .map(scheduleDailyResponse -> getScheduleWithFreeTimes(scheduleDailyResponse, minutes))
                 .filter(scheduleFreeTimeResponse -> scheduleFreeTimeResponse.times().size() > 0)
                 .collect(Collectors.toList());
     }
 
 
-    private ScheduleFreeTimeResponse getScheduleWithFreeTimes(ScheduleDailyResponse scheduleDailyResponse) {
+    private ScheduleFreeTimeResponse getScheduleWithFreeTimes(ScheduleDailyResponse scheduleDailyResponse, Integer minutes) {
         String id = scheduleDailyResponse.id();
         String title = scheduleDailyResponse.name();
         List<Session> sessions = scheduleDailyResponse.sessions();
@@ -62,7 +62,7 @@ public class GetScheduleMemberTimesService {
         LocalTime current = startTime;
         while (current.isBefore(endTime)) {
             allPossibleTimes.add(current);
-            current = current.plusMinutes(30);
+            current = current.plusMinutes(minutes);
         }
 
         List<LocalTime> freeTimes = allPossibleTimes.stream()
@@ -71,7 +71,7 @@ public class GetScheduleMemberTimesService {
                 .collect(Collectors.toList());
 
         List<ScheduleTimeResponse> freeTimeResponses = freeTimes.stream()
-                .map(time -> new ScheduleTimeResponse(time, time.plusMinutes(30)))
+                .map(time -> new ScheduleTimeResponse(time, time.plusMinutes(minutes)))
                 .collect(Collectors.toList());
 
         return new ScheduleFreeTimeResponse(id, title, freeTimeResponses);

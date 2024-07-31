@@ -21,9 +21,11 @@ public class GetScheduleMemberTimesController {
     private final GetScheduleMemberTimesService service;
 
     @GetMapping("/v1/schedules/free-times")
-    public ResponseEntity<List<ScheduleFreeTimeResponse>> execute(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<List<ScheduleFreeTimeResponse>> execute(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam Integer minutes) {
 
-        List<ScheduleFreeTimeResponse> response = service.execute(date);
+        List<ScheduleFreeTimeResponse> response = service.execute(date, minutes);
 
         return ResponseEntity.status(200).body(response);
 
