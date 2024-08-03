@@ -8,17 +8,14 @@ import com.liberbox.sessions.controller.request.PutSessionRequest;
 import com.liberbox.sessions.domain.Session;
 import com.liberbox.sessions.repository.SessionRepository;
 import com.liberbox.sms.UpdateSessionService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-
-@Tag(name = "session")
-@RestController
+@Service
 @RequiredArgsConstructor
 public class PutSessionService {
 

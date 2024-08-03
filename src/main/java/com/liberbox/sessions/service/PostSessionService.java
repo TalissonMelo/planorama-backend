@@ -3,9 +3,8 @@ package com.liberbox.sessions.service;
 import com.liberbox.sessions.controller.request.SessionRequest;
 import com.liberbox.sessions.domain.Session;
 import com.liberbox.sessions.repository.SessionRepository;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Tag(name = "session")
-@RestController
+@Service
 @RequiredArgsConstructor
 public class PostSessionService {
 
