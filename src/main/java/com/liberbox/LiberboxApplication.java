@@ -10,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableCaching
 public class LiberboxApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LiberboxApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LiberboxApplication.class, args);
+    }
 }
