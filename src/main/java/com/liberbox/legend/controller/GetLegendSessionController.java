@@ -19,7 +19,7 @@ public class GetLegendSessionController {
 
     private final GetLegendSessionService service;
 
-    @GetMapping("/v1/schedule/{scheduleId}/legend")
+    @GetMapping("/v1/schedules/{scheduleId}/legends")
     public ResponseEntity<List<LegendResponse>> execute(@PathVariable String scheduleId) {
 
         List<LegendResponse> response = service.execute(scheduleId);

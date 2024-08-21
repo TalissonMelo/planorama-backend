@@ -19,7 +19,7 @@ public class GetLegendUserController {
 
     private final GetLegendUserService service;
 
-    @GetMapping("/v1/user/{userId}/legend")
+    @GetMapping("/v1/users/{userId}/legends")
     public ResponseEntity<List<LegendResponse>> execute(@PathVariable String userId) {
 
         List<LegendResponse> response = service.execute(userId);
