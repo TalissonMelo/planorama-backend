@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,36 +17,57 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.liberbox.security.util.JWTUtil;
 
+@Slf4j
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-	private JWTUtil jwtUtil;
-	private UserDetailsService userDetailsService;
+    private JWTUtil jwtUtil;
+    private UserDetailsService userDetailsService;
 
-	public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UserDetailsService userDetailsService) {
-		super(authenticationManager);
-		this.jwtUtil = jwtUtil;
-		this.userDetailsService = userDetailsService;
-	}
-	
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-		String header = request.getHeader("Authorization");
-		if(header != null && header.startsWith("Bearer ")) {
-			UsernamePasswordAuthenticationToken authToken = getAuthentication(header.substring(7));
-			if(authToken != null) {
-				SecurityContextHolder.getContext().setAuthentication(authToken);
-			}
-		}
-		chain.doFilter(request, response);
-	}
+    public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UserDetailsService userDetailsService) {
+        super(authenticationManager);
+        this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
+    }
 
-	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
-		if(jwtUtil.tokenValido(token)) {
-			String username = jwtUtil.getUsername(token);
-			UserDetails details = userDetailsService.loadUserByUsername(username);
-			return new UsernamePasswordAuthenticationToken(details.getUsername(), null, details.getAuthorities());
-		}
-		return null;
-	}
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String header = request.getHeader("Authorization");
+        if (header != null && header.startsWith("Bearer ")) {
+            UsernamePasswordAuthenticationToken authToken = getAuthentication(header.substring(7), request);
+            if (authToken != null) {
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
+        chain.doFilter(request, response);
+    }
 
+    private UsernamePasswordAuthenticationToken getAuthentication(String token, HttpServletRequest request) {
+        if (jwtUtil.tokenValido(token)) {
+            String username = jwtUtil.getUsername(token);
+            UserDetails details = userDetailsService.loadUserByUsername(username);
+            toLog(request, details);
+            return new UsernamePasswordAuthenticationToken(details.getUsername(), null, details.getAuthorities());
+        }
+        toLog(request);
+        return null;
+    }
+
+    private void toLog(HttpServletRequest req, UserDetails details) {
+        HttpServletRequest request = (HttpServletRequest) req;
+        String userId = request.getHeader("X-UserID");
+
+        log.info("Method: " + req.getMethod() +
+                ", path: " + req.getServletPath() +
+                ", userId: " + userId +
+                ", login: " + details.getUsername());
+    }
+
+    private void toLog(HttpServletRequest req) {
+        HttpServletRequest request = (HttpServletRequest) req;
+        String userId = request.getHeader("X-UserID");
+
+        log.info("Method: " + req.getMethod() +
+                ", path: " + req.getServletPath() +
+                ", userId: " + userId);
+    }
 }

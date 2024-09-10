@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String[] PUBLIC_MATCHERS = { "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/v1/users", "/v1/users/passwords", "/v1/users/passwords/codes" };
+	private static final String[] PUBLIC_MATCHERS = { "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/v1/users", "/v1/users/passwords", "/v1/users/passwords/codes", "/actuator/**" };
 	private final UserDetailsService userDetailsService;
 	private final UserRepository repository;
 	private final JWTUtil jwtUtil;
