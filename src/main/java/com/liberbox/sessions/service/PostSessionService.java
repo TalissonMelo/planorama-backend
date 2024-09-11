@@ -20,6 +20,12 @@ public class PostSessionService {
 
     public void execute(SessionRequest request) {
 
+        if (!request.startTime().toLocalDate().equals(request.endTime().toLocalDate())) {
+            if (request.daysOfWeeks().isEmpty()) {
+                throw new IllegalArgumentException("Does not created sessions");
+            }
+        }
+
         if (request.daysOfWeeks().size() > 0) {
             List<Session> sessions = new ArrayList<>();
             for (LocalDate data = request.startTime().toLocalDate(); !data.isAfter(request.endTime().toLocalDate()); data = data.plusDays(1)) {

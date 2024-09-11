@@ -56,7 +56,7 @@ public class GetScheduleMemberTimesService {
         String title = scheduleDailyResponse.name();
         List<Session> sessions = scheduleDailyResponse.sessions();
         LocalTime startTime = scheduleDailyResponse.startTime();
-        LocalTime endTime = scheduleDailyResponse.endTime();
+        LocalTime endTime = scheduleDailyResponse.endTime().plusSeconds(2);
 
         List<LocalTime> allPossibleTimes = new ArrayList<>();
         LocalTime current = startTime;
@@ -67,22 +67,27 @@ public class GetScheduleMemberTimesService {
 
         List<LocalTime> freeTimes = allPossibleTimes.stream()
                 .filter(time -> sessions.stream()
-                        .noneMatch(session -> isTimeWithinSession(time, session)))
+                        .noneMatch(session -> isTimeWithinSession(time, session, minutes)))
                 .collect(Collectors.toList());
 
         List<ScheduleTimeResponse> freeTimeResponses = freeTimes.stream()
                 .map(time -> new ScheduleTimeResponse(time, time.plusMinutes(minutes)))
+                .filter(scheduleTimeResponse -> scheduleTimeResponse.endTime().isBefore(endTime))
                 .collect(Collectors.toList());
 
         return new ScheduleFreeTimeResponse(id, title, freeTimeResponses);
     }
 
 
-    private boolean isTimeWithinSession(LocalTime time, Session session) {
+    private boolean isTimeWithinSession(LocalTime time, Session session, int durationInMinutes) {
         LocalTime sessionStartTime = session.getStartTime().toLocalTime();
         LocalTime sessionEndTime = session.getEndTime().toLocalTime();
-        return !time.isBefore(sessionStartTime) && time.isBefore(sessionEndTime);
+        LocalTime endTime = time.plusMinutes(durationInMinutes);
+        Boolean result = !(endTime.isAfter(sessionStartTime) && time.isBefore(sessionEndTime));
+        return !result;
     }
+
+
 
     private List<Session> toSessions(String scheduleId, List<Session> sessions) {
         return sessions.stream()

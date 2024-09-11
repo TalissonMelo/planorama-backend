@@ -25,4 +25,11 @@ public interface SessionRepository extends JpaRepository<Session, String> {
 
     @Query(value = "SELECT * FROM session WHERE schedule_id IN :scheduleIds AND DATE(start_time) = :date ORDER BY start_time ASC", nativeQuery = true)
     List<Session> findByScheduleIdsAndDate(List<String> scheduleIds, LocalDate date);
+
+
+    @Query("SELECT s.id " +
+            "FROM Session s " +
+            "INNER JOIN Schedule sc ON sc.id = s.scheduleId " +
+            "WHERE s.legendId = :legendId ")
+    List<String> findLegendIdByLegendId(String legendId);
 }
