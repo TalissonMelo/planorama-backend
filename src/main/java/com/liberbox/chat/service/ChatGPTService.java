@@ -37,11 +37,13 @@ public class ChatGPTService {
 
         chatRepository.save(chat);
 
-        ChatGptRequest request = new ChatGptRequest(model, Arrays.asList(new Message("user", content)));
+        return new ChatRequest("Momento sem integração apenas mensagem padrão.");
+
+        /*ChatGptRequest request = new ChatGptRequest(model, Arrays.asList(new Message("user", content)));
 
         ChatGptResponse response = template.postForObject(url, request, ChatGptResponse.class);
 
-        return new ChatRequest(response.getChoices().get(0).getMessage().content());
+        return new ChatRequest(response.getChoices().get(0).getMessage().content());*/
     }
 }
 

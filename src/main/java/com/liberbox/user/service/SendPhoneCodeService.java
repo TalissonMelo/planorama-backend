@@ -1,6 +1,5 @@
 package com.liberbox.user.service;
 
-import com.liberbox.sms.TwilioService;
 import com.liberbox.user.controller.request.SendEmailRequest;
 import com.liberbox.user.controller.response.PhoneResponse;
 import com.liberbox.user.domain.RecoveryCode;
@@ -18,7 +17,6 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class SendPhoneCodeService {
 
-    private final TwilioService twilioService;
     private final UserRepository userRepository;
     private final RecoveryCodeRepository recoveryCodeRepository;
     private final RecoveryCodeGeneratorService recoveryCodeGeneratorService;
@@ -32,8 +30,6 @@ public class SendPhoneCodeService {
         RecoveryCode recoveryCode = RecoveryCode.of(newCode, CodeType.PASSWORD_RECOVERY, 15, user.getEmail(), user.getEmail(), user.getPhone());
 
         recoveryCodeRepository.save(recoveryCode);
-
-        twilioService.sendVerificationCode(user.getPhone(), user.getNickname(), recoveryCode.getCode());
 
         return new PhoneResponse(maskPhoneNumber(user.getPhone()));
     }

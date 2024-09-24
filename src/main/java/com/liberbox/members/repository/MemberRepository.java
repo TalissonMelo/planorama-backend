@@ -13,4 +13,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     @Query("SELECT m FROM Member m WHERE m.scheduleId = :scheduleId AND m.ownerId = :ownerId ")
     Member listMemberToScheduleIdAndMember(String scheduleId, String ownerId);
+
+    @Query("SELECT m FROM Member m WHERE m.scheduleId = :scheduleId AND  m.ownerId <> :ownerId")
+    List<Member> listMemberToScheduleIdAndNotMember(String scheduleId, String ownerId);
 }
