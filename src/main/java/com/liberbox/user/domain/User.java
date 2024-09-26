@@ -26,64 +26,74 @@ import lombok.NoArgsConstructor;
 @Getter
 public class User extends ToEntity implements Auditable {
 
-	@Id
-	private String id;
-	
-	@Column(unique = true)
-	private String email;
-	private String password;
-	private String nickname;
-	private Boolean active;
-	private String phone;
+    @Id
+    private String id;
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "profiles")
-	protected Set<Integer> profile = new HashSet<>();
+    @Column(unique = true)
+    private String email;
+    private String password;
+    private String nickname;
+    private Boolean active;
+    private String phone;
 
-	private User(String email, String password, String nickname, String phone) {
-		this.id = UUID.randomUUID().toString();
-		this.active = Boolean.TRUE;
-		this.email = email;
-		this.password = password;
-		this.nickname = nickname;
-		this.phone = phone;
-	}
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "userTokens")
+    protected Set<String> userTokens = new HashSet<>();
 
-	public static User to(String email, String password, String nickname, String phone) {
-		return new User(email, password, nickname, phone);
-	}
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "profiles")
+    protected Set<Integer> profile = new HashSet<>();
 
-	public User disabled() {
-		this.active = Boolean.FALSE;
-		return this;
-	}
+    private User(String email, String password, String nickname, String phone) {
+        this.id = UUID.randomUUID().toString();
+        this.active = Boolean.TRUE;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.phone = phone;
+    }
 
-	public User toUpdated(String nickname, String phone) {
-		this.nickname = nickname;
-		this.phone = phone;
-		return this;
-	}
+    public static User to(String email, String password, String nickname, String phone) {
+        return new User(email, password, nickname, phone);
+    }
 
-	public User toUpdatedPassword(String newPassword) {
-		this.password = newPassword;
-		return this;
-	}
+    public User disabled() {
+        this.active = Boolean.FALSE;
+        return this;
+    }
 
-	public Set<Profile> getProfiles() {
-		return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
-	}
+    public User toUpdated(String nickname, String phone) {
+        this.nickname = nickname;
+        this.phone = phone;
+        return this;
+    }
 
-	public void addProfile(Profile profile) {
-		this.profile.add(profile.getCode());
-	}
+    public User toUpdatedPassword(String newPassword) {
+        this.password = newPassword;
+        return this;
+    }
 
-	@Override
-	public String getEntityId() {
-		return this.id;
-	}
+    public Set<Profile> getProfiles() {
+        return profile.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+    }
 
-	@Override
-	public String getEntityName() {
-		return getClass().getSimpleName();
-	}
+    public void addProfile(Profile profile) {
+        this.profile.add(profile.getCode());
+    }
+
+    @Override
+    public String getEntityId() {
+        return this.id;
+    }
+
+    @Override
+    public String getEntityName() {
+        return getClass().getSimpleName();
+    }
+
+    public void addProfile(String token) {
+
+        this.userTokens.add(token);
+    }
+
 }
