@@ -1,7 +1,7 @@
 package com.liberbox.user.controller.request;
 
-import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
-public record UserTokenRequest(@Email(message = "Token is mandatory") String token) {
+public record UserTokenRequest(@NotBlank(message = "Token is mandatory") String token) {
 
 }
