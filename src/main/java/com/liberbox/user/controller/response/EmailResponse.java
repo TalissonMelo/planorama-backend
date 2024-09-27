@@ -1,5 +1,5 @@
 package com.liberbox.user.controller.response;
 
-public record PhoneResponse(String phone) {
+public record EmailResponse(String email) {
 
 }

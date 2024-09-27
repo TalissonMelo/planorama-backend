@@ -1,7 +1,7 @@
 package com.liberbox.user.controller;
 
 import com.liberbox.user.controller.request.SendEmailRequest;
-import com.liberbox.user.controller.response.PhoneResponse;
+import com.liberbox.user.controller.response.EmailResponse;
 import com.liberbox.user.service.SendPhoneCodeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ public class SendPhoneCodeController {
     private final SendPhoneCodeService sendPhoneCodeService;
 
     @PutMapping("/v1/users/passwords")
-    public ResponseEntity<PhoneResponse> execute(@RequestBody SendEmailRequest request) {
+    public ResponseEntity<EmailResponse> execute(@RequestBody SendEmailRequest request) {
 
-        PhoneResponse response = sendPhoneCodeService.execute(request);
+        EmailResponse response = sendPhoneCodeService.execute(request);
 
         return ResponseEntity.status(201).body(response);
     }
