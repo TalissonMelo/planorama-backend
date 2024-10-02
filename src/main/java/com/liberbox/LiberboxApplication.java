@@ -7,7 +7,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @EnableAspectJAutoProxy
 @SpringBootApplication
-@EnableCaching
 public class LiberboxApplication {
 
     public static void main(String[] args) {
